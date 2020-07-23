@@ -33,17 +33,32 @@ bool solve(int s[9][9],int x,int y){
     }
     return false;
 }
+void print(int s[9][9]){
+    for(int i=0;i<9;i++) {
+        for(int j=0;j<9;j++) cout<<s[i][j]<<" ";
+        cout<<endl;
+    }
+}
 
 int main() {
     fast;
-    int s[9][9];
-    for(int i=0;i<9;i++) for(int j=0;j<9;j++) cin>>s[i][j];
+    int s[9][9]= 
+        {{3, 0, 6, 5, 0, 8, 4, 0, 0},
+        {5, 2, 0, 1, 3, 0, 0, 0, 0},
+        {0, 8, 7, 0, 0, 0, 5, 3, 1},
+        {0, 0, 3, 0, 1, 0, 0, 8, 0},
+        {9, 0, 0, 8, 6, 3, 0, 0, 5},
+        {0, 5, 0, 0, 9, 0, 6, 0, 0},
+        {1, 3, 0, 0, 0, 0, 2, 5, 0},
+        {0, 0, 0, 0, 0, 0, 0, 7, 4},
+        {7, 0, 5, 2, 0, 6, 3, 0, 0}};
+
+    //for(int i=0;i<9;i++) for(int j=0;j<9;j++) cin>>s[i][j];
+
     if(solve(s,0,0)){
-        for(int i=0;i<9;i++) {
-            for(int j=0;j<9;j++) cout<<s[i][j]<<" ";
-            cout<<endl;
-        }
+        print(s);
     }
-    else cout<<-1;
+    else cout<<"No Solution";
+    
 	return 0;
 }
