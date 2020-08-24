@@ -36,7 +36,7 @@ class Grid:
             self.cubes[row][col].set(val)
             self.update_model()
 
-            if valid(self.model, val, (row,col)) and self.solve():
+            if check(self.model, val, (row,col)) and self.solve():
                 return True
             else:
                 self.cubes[row][col].set(0)
@@ -56,7 +56,7 @@ class Grid:
             else:
                 thick = 1
             pygame.draw.line(self.win, (0,0,0), (0, i*gap), (self.width, i*gap), thick)
-            pygame.draw.line(self.win, (0, 0, 0), (i * gap, 0), (i * gap, self.height), thick)
+            pygame.draw.line(self.win, (0,0,0), (i * gap, 0), (i * gap, self.height), thick)
 
         for i in range(self.rows):
             for j in range(self.cols):
@@ -99,14 +99,14 @@ class Grid:
             row, col = find
 
         for i in range(1, 10):
-            if valid(self.model, i, (row, col)):
+            if check(self.model, i, (row, col)):
                 self.model[row][col] = i
 
                 if self.solve():
                     return True
 
                 self.model[row][col] = 0
-
+                
         return False
 
     def solve_gui(self):
@@ -118,13 +118,13 @@ class Grid:
             row, col = find
 
         for i in range(1, 10):
-            if valid(self.model, i, (row, col)):
+            if check(self.model, i, (row, col)):
                 self.model[row][col] = i
                 self.cubes[row][col].set(i)
                 self.cubes[row][col].draw_change(self.win, True)
                 self.update_model()
                 pygame.display.update()
-                pygame.time.delay(100)
+                pygame.time.delay(50)
 
                 if self.solve_gui():
                     return True
@@ -134,7 +134,7 @@ class Grid:
                 self.update_model()
                 self.cubes[row][col].draw_change(self.win, False)
                 pygame.display.update()
-                pygame.time.delay(100)
+                pygame.time.delay(50)
 
         return False
 
@@ -199,26 +199,21 @@ def find_empty(bo):
 
     return None
 
+def check(bo, num, pos):
+    x,y=pos[0],pos[1]
 
-def valid(bo, num, pos):
-    for i in range(len(bo[0])):
-        if bo[pos[0]][i] == num and pos[1] != i:
+    for i in range(0,9):
+        if i!=y and bo[x][i]==num: 
             return False
-
-    for i in range(len(bo)):
-        if bo[i][pos[1]] == num and pos[0] != i:
+    for i in range(0,9):
+        if i!=x and bo[i][y]==num: 
             return False
-
-    box_x = pos[1] // 3
-    box_y = pos[0] // 3
-
-    for i in range(box_y*3, box_y*3 + 3):
-        for j in range(box_x * 3, box_x*3 + 3):
-            if bo[i][j] == num and (i,j) != pos:
+    for i in range(x-x%3,x+3-x%3):
+        for j in range(y-y%3,y+3-y%3):
+            if i!=x and j!=y and bo[i][j]==num: 
                 return False
 
     return True
-
 
 def redraw_window(win, board, time, strikes):
     win.fill((255,255,255))
@@ -233,9 +228,13 @@ def redraw_window(win, board, time, strikes):
 def format_time(secs):
     sec = secs%60
     minute = secs//60
-    hour = minute//60
-    mat = " " + str(minute) + ":" + str(sec)
-    return mat
+    #hour = minute//60
+    if sec<10:
+        str_sec=f'0{sec}'
+    else:
+        str_sec=str(sec)
+
+    return f' {str(minute)}:{str_sec}'
 
 win = pygame.display.set_mode((540,600))
 pygame.display.set_caption("Sudoku")

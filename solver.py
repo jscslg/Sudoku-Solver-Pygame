@@ -15,8 +15,7 @@ def solve(s,x,y):
     if x==8 and y==9:
         return True
     if y==9:
-        x+=1
-        y=0
+        x,y=x+1,0
     if s[x][y]>0: 
         return solve(s,x,y+1)
     for i in range(1,10):
@@ -49,5 +48,5 @@ def main():
         display(board)
     else:
         print("No Solution")
-
+        
 main()

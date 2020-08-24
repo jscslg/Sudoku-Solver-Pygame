@@ -19,10 +19,7 @@ bool check(int s[9][9],int x,int y,int z){
 }
 bool solve(int s[9][9],int x,int y){
     if(x==8&&y==9) return true;
-    if(y==9){
-        x++;
-        y=0;
-    }
+    if(y==9) ++x,y=0;
     if(s[x][y]>0) return solve(s,x,y+1);
     for(int i=1;i<=9;i++){
         if(check(s,x,y,i)){
