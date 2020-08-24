@@ -1,2 +1,2 @@
 # Sudoku-Solver-Pygame
- A GUI for playing and auto-solving a sudoku puzzle developed in Pygame which uses backtracking algorithm to solve the sudoku.
+A GUI for playing Sudoku which can also autosolve the puzzle using backtracking algorithm while showcasing the steps involved in the process.
