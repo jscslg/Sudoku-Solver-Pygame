@@ -106,7 +106,7 @@ class Grid:
                     return True
 
                 self.model[row][col] = 0
-                
+
         return False
 
     def solve_gui(self):
@@ -230,11 +230,10 @@ def format_time(secs):
     minute = secs//60
     #hour = minute//60
     if sec<10:
-        str_sec=f'0{sec}'
+        return f' {str(minute)}:0{sec}'
     else:
-        str_sec=str(sec)
-
-    return f' {str(minute)}:{str_sec}'
+        return f' {str(minute)}:{sec}'
+    
 
 win = pygame.display.set_mode((540,600))
 pygame.display.set_caption("Sudoku")
