@@ -1,5 +1,4 @@
 #include <iostream>
-#define fast ios_base::sync_with_stdio(false), cin.tie(NULL), cout.tie(NULL)
 
 using namespace std; 
 
@@ -38,7 +37,6 @@ void print(int s[9][9]){
 }
 
 int main() {
-    fast;
     int s[9][9]= 
         {{3, 0, 6, 5, 0, 8, 4, 0, 0},
         {5, 2, 0, 1, 3, 0, 0, 0, 0},
@@ -52,9 +50,7 @@ int main() {
 
     //for(int i=0;i<9;i++) for(int j=0;j<9;j++) cin>>s[i][j];
 
-    if(solve(s,0,0)){
-        print(s);
-    }
+    if(solve(s,0,0)) print(s);
     else cout<<"No Solution";
     
 	return 0;
